@@ -22,12 +22,12 @@ curl -X DELETE 13.124.21.247:9999/user/3
 # CORS
 cors 는 브라우저에서 서버로 갈 때에만 발생하고 도메인이 서로 다를 때 발생한다.
 <h3>해결 방법</h3>
-1. 내부 모듈,npm i cors 로 설정
-2. header에 'Access-Control-Allow-Origin' 설정을 해준다.
-   res.setHeader('Access-Control-Allow-Origin', '*');
-   cookie 를 같이 보내야 할 때에는
-   'Access-Control-Allow-Credentials' 를 true로 설정 해줘야 하고 이 경우에
-   'Origin' 또한 true로 해주어야 한다.
+1. 내부 모듈,npm i cors 로 설정<br>
+2. header에 'Access-Control-Allow-Origin' 설정을 해준다.<br>
+   res.setHeader('Access-Control-Allow-Origin', '*');<br>
+   cookie 를 같이 보내야 할 때에는<br>
+   'Access-Control-Allow-Credentials' 를 true로 설정 해줘야 하고 이 경우에<br>
+   'Origin' 또한 true로 해주어야 한다.<br>
 3. 프록시 서버를 이용한다.
 
 
