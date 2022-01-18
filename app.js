@@ -1,8 +1,6 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const ejs = require('ejs');
-const fs = require('fs');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 
@@ -11,6 +9,9 @@ const { sequelize } = require('./models');
 
 const app = express();
 
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
 // ejs setting
 app.set( 'view engine', 'ejs');
 app.set( 'views', __dirname + '/views');
@@ -18,11 +19,13 @@ app.set( 'views', __dirname + '/views');
 app.set('port', process.env.PORT || 9999);
 
 const indexRouter = require('./routes');
-const userRouter = require('./routes/user');
-const { resolveSoa } = require('dns');
+const userRouter =require("./routes/userRouter");
+app.use(indexRouter.user, userRouter);
+//const userRouter = require('./routes/user');
 
-app.use('/',indexRouter);
-app.use('/user',userRouter);
+
+//app.use('/',indexRouter);
+//app.use('/user',userRouter);
 
 
 sequelize.sync({ force: false })
@@ -36,9 +39,21 @@ sequelize.sync({ force: false })
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
 
+
+
+app.get('/',(req,res, next)=>{
+    res.render('test');
+    next();
+});
+
+app.get('/test1',(req,res)=>{
+    res.send('test1 OK');
+});
+
+app.get('/test2',(req,res)=>{
+    res.json({'test':'ok'});
+});
 
 app.get('/hc.check/_ah/health',(req,res)=>{
     // res.sendFile(path.join(__dirname, 'health.ejs','utf-8',(err,data)=>{
