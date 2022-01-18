@@ -19,7 +19,7 @@ curl -X POST 13.124.21.247:9999/user/1/hasCat
 # 해당 유저 삭제 DELETE
 curl -X DELETE 13.124.21.247:9999/user/3
 
-#CORS
+# CORS
 cors 는 브라우저에서 서버로 갈 때에만 발생하고 도메인이 서로 다를 때 발생한다.
 <h3>해결 방법</h3>
 1. 내부 모듈,npm i cors 로 설정
@@ -31,7 +31,7 @@ cors 는 브라우저에서 서버로 갈 때에만 발생하고 도메인이 �
 3. 프록시 서버를 이용한다.
 
 
-#Cookie
+# Cookie
 express 에서 cookie를 사용할 때에는 cookie-parser를 사용한다.
 
 
