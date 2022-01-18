@@ -23,13 +23,8 @@ app.set('port', process.env.PORT || 9999);
 const indexRouter = require('./routes');
 const userRouter =require("./routes/userRouter");
 app.use(indexRouter.user, userRouter);
-//const userRouter = require('./routes/user');
 
-
-//app.use('/',indexRouter);
-//app.use('/user',userRouter);
-
-
+// sequelize 연결
 sequelize.sync({ force: false })
     .then(()=>{
         console.log("db 연결");
@@ -40,10 +35,8 @@ sequelize.sync({ force: false })
     });
 
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'public')));
 
-
-
+// user 등록 페이지로 이동
 app.get('/',(req,res)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.cookie('name','test',{
@@ -58,21 +51,19 @@ app.get('/',(req,res)=>{
     res.render('test');
 });
 
+// test1 ok 출력
 app.get('/test1',(req,res)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.send('test1 OK');
 });
 
+// test:ok json으로 출력
 app.get('/test2',(req,res)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.json({'test':'ok'});
 });
 
 app.get('/hc.check/_ah/health',(req,res)=>{
-    // res.sendFile(path.join(__dirname, 'health.ejs','utf-8',(err,data)=>{
-    //     res.writeHead(200,{'Context-Type' : 'text/html'});
-    //     res.end(data);
-    // }));
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200);
 });

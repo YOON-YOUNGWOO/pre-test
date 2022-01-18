@@ -15,14 +15,13 @@ const router = express.Router();
 //     }
 // });
 
-// 새로운 유저 생성하기
+// 새로운 유저 생성하기 ok
 /*
     index : BIGINT UNSIGNED autoincrement
     userName : char(64)
     userDesc : text
     hasCat : boolean
 */
-// insert into users(userName, userDesc, hasCat) values('abc','ccc',true);
 router.post('/',async (req,res)=>{
     console.log('일단 여기는 들어옴');
     console.log(req.params);
@@ -57,7 +56,7 @@ router.get('/:userIndex/hasCat',async (req,res)=>{
 
 });
 
-// 해당 유저 고양이 유무 수정하기
+// 해당 유저 고양이 유무 수정하기 ok
 //curl -X POST 13.124.21.247:9999/user/1/hasCat
 router.post('/:userIndex/hasCat',async (req,res)=>{
     try{
@@ -71,7 +70,8 @@ router.post('/:userIndex/hasCat',async (req,res)=>{
         let hascat = user.dataValues.hasCat ? false:true;
 
         const result = await User.update({
-            hasCat : hascat,
+            hasCat : hascat,}
+            ,{
             where:{
                 index : req.params.userIndex,
             },
