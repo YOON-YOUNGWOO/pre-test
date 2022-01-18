@@ -6,6 +6,7 @@ const  User  = require('../models/user');
 exports.user = async (req,res)=>{
     try{
         const users = await User.findAll();
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(users);
     }catch(err){
         console.log(err);
@@ -32,6 +33,7 @@ exports.adduser = async (req,res)=>{
             hasCat : req.body.hascat,
         });
         console.log(user);
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.status(201).json(user);
     }catch(err){
         console.log(err);
@@ -48,6 +50,7 @@ exports.hascat = async (req,res)=>{
                 index : req.params.userIndex,
             }
         });
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(user);
     }catch(err){
         console.log(err);
@@ -75,6 +78,7 @@ exports.hascatChange = async (req,res) =>{
                 index : userindex,
             },
         });
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(result);
     }catch(err){
         console.log(err);
@@ -91,6 +95,7 @@ exports.userdelete = async (req,res) => {
                 index : req.params.userIndex
             }
         });
+        res.setHeader('Access-Control-Allow-Origin', '*');
         res.json(result);
     }catch(err){
         console.log(err);

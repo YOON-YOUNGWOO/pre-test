@@ -3,6 +3,7 @@ const path = require('path');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 dotenv.config();
 const { sequelize } = require('./models');
@@ -12,6 +13,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
+app.use(cookieParser());
 // ejs setting
 app.set( 'view engine', 'ejs');
 app.set( 'views', __dirname + '/views');
@@ -43,14 +45,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/',(req,res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.cookie('name','test',{
+        expires: new Date(),
+        httpOnly : true,
+        path : '/',
+    });
+    res.clearCookie('name','test',{
+        httpOnly : true,
+        path : '/',
+    });
     res.render('test');
 });
 
 app.get('/test1',(req,res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send('test1 OK');
 });
 
 app.get('/test2',(req,res)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.json({'test':'ok'});
 });
 
@@ -59,6 +73,7 @@ app.get('/hc.check/_ah/health',(req,res)=>{
     //     res.writeHead(200,{'Context-Type' : 'text/html'});
     //     res.end(data);
     // }));
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200);
 });
 
