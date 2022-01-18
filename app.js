@@ -42,9 +42,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.get('/',(req,res, next)=>{
+app.get('/',(req,res)=>{
     res.render('test');
-    next();
 });
 
 app.get('/test1',(req,res)=>{
